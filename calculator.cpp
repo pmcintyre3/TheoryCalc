@@ -83,11 +83,11 @@ int calculator::multiply(int x, int y){
   } //case 2
   else if (x < 0 && y > 0){ //case 3: i.e (-2) * 2
     mulCount++;
-    return (0 - x) + calculator::multiply(x, (y - 1));
+    return x + calculator::multiply(x, (y - 1));
   } //case 3
   else if(x < 0 && y < 0){ //case 4: i.e (-2) * (-2)
     mulCount++;
-    return x + calculator::multiply(x, (y + 1));
+    return (0 - x) + calculator::multiply(x, (y + 1));
   } //case 4
 
   //error case --------------------------------
@@ -100,6 +100,7 @@ int calculator::multiply(int x, int y){
 } //multiply
 
 int calculator::divide(int x, int y){
+  cout << "x: " << x << ", y: " << y << endl;
 
   //base cases --------------------------------
 
@@ -108,14 +109,22 @@ int calculator::divide(int x, int y){
     divCount = -1;
     return -1;
   }
-  else if(x == 0)
+  else if(x == 0){
     return 0;
-  else if(y == x || (-y) == (-x))
+    cout << "x = 0" << endl;
+  }
+  else if(y == x || (-y) == (-x)){
     return 1;
-  else if (y == (-x) || (-y) == x)
+    cout << "y == x or -y == -x" << endl;
+  }
+  else if (y == (-x) || (-y) == x){
     return (-1);
-  else if(abs(y) > abs(x))
+    cout << "y = -x or x = -y" << endl;
+  }
+  else if(abs(y) > abs(x)){
+    cout << "absolute value: divide" << endl;
     return 0;
+  }
 
   //recursive cases ---------------------------
   
@@ -127,13 +136,13 @@ int calculator::divide(int x, int y){
     divCount++;
     return (-1) + calculator::divide((x + y), y);
   }
-  else if(x > 0 && y > 0){ //case 3: (-10) / 2
+  else if(x < 0 && y > 0){ //case 3: (-10) / 2
     divCount++;
     return (-1) + calculator::divide((x + y), y);
   }
-  else if(x > 0 && y > 0){ //case 4: (-10) / (-2)
+  else if(x < 0 && y < 0){ //case 4: (-10) / (-2)
     divCount++;
-    return 1 + calculator::divide((x + y), y);
+    return 1 + calculator::divide((x - y), y);
   }
 } //int
 
