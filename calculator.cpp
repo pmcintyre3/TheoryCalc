@@ -8,60 +8,78 @@ calculator::calculator() : addCount(0), subCount(0), mulCount(0), divCount(0) {}
 
 int calculator::add(int x, int y){
 
-  cout << "x: " << x << " y: " << y << endl;
+  //base case ---------------------------------
+
   if (y == 0) //base case
     return x;
+
+  //recursive cases ---------------------------
+
   else if(x >= 0 && y > 0){ //case 1: i.e 2 + 2
     addCount++;
     return calculator::add((x + 1), (y - 1));
-  }
+  } //case 1
   else if(x >= 0 && y < 0){ //case 2: i.e 2 + (-2)
     addCount++;
     return calculator::add((x - 1), (y + 1));
-  } //else
+  } //case 2
   else if(x <= 0 && y > 0){ //case 3: i.e (-2) + 2
     addCount++;
     return calculator::add((x + 1), (y - 1));
-  } //else
+  } //case 3
   else if(x <= 0 && y < 0){ //case 4: i.e (-2) + (-2)
     addCount++;
     return calculator::add((x - 1), (y + 1));
-  } //else if
+  } //case 4
+
+  // error case (should never happen) ---------
+
   else{
     addCount = -1;
     cout << endl << "Invalid input" << endl;
     return 0;
   } //else
+
 } //add
 
 int calculator::subtract(int x, int y){
+
+  //base case ---------------------------------
+
   if (y == 0) //base case
     return x;
+
+  //recursive cases ---------------------------
+
   else if(x >= 0 && y > 0){ //case 1: i.e 2 - 2
     subCount++;
     return calculator::subtract((x - 1), (y - 1));
-  }
+  } //case 1
   else if(x >= 0 && y < 0){ //case 2: i.e 2 - (-2)
     subCount++;
     return calculator::subtract((x + 1), (y + 1));
-  }
+  } //case 2
   else if(x <= 0 && y > 0){ //case 3: i.e (-2) - 2
     subCount++;
     return calculator::subtract((x - 1), (y - 1));
-  }
+  } //case 3
   else if(x <= 0 && y < 0){ //case 4: i.e (-2) - (-2)
     subCount++;
     return calculator::subtract((x + 1), (y + 1));
-  } //else
+  } //case 4
+
+  //error case (should never happen) ----------
+
   else{
     subCount = -1;
     cout << endl << "Invalid input" << endl;
     return 0;
   } //else
+
 } //subtract
 
 int calculator::multiply(int x, int y){
-  cout << "x: " << x << ", y: " << y << endl;
+
   //base cases --------------------------------
 
   if (y == 0 || x == 0)
@@ -90,60 +108,69 @@ int calculator::multiply(int x, int y){
     return (0 - x) + calculator::multiply(x, (y + 1));
   } //case 4
 
-  //error case --------------------------------
+  //error case (should never happen) ----------
 
   else{
     mulCount = -1;
     cout << endl << "Invalid input" << endl;
     return 0;
   } //else
+
 } //multiply
 
 int calculator::divide(int x, int y){
-  cout << "x: " << x << ", y: " << y << endl;
 
   //base cases --------------------------------
 
-  if(y == 0){
+  if(y == 0){ //divide by zero
     cout << endl << "Cannot divide by zero!" << endl;
     divCount = -1;
     return -1;
-  }
-  else if(x == 0){
+  } // divide by zero
+  else if(x == 0){ //numerator is zero
     return 0;
     cout << "x = 0" << endl;
-  }
-  else if(y == x || (-y) == (-x)){
+  } //numerator is zero
+  else if(y == x || (-y) == (-x)){ //positive base case
     return 1;
     cout << "y == x or -y == -x" << endl;
-  }
-  else if (y == (-x) || (-y) == x){
+  } //positive base case
+  else if (y == (-x) || (-y) == x){ //negative base case
     return (-1);
     cout << "y = -x or x = -y" << endl;
-  }
-  else if(abs(y) > abs(x)){
+  } //negative base case
+  else if(abs(y) > abs(x)){ //fractions - return zero
     cout << "absolute value: divide" << endl;
     return 0;
-  }
+  } //fractions - return zero
 
   //recursive cases ---------------------------
   
   if(x > 0 && y > 0){ //case 1: 10 / 2
     divCount++;
     return 1 + calculator::divide((x - y), y);
-  }
+  } //case 1
   else if(x > 0 && y < 0){ //case 2: 10 / (-2)
     divCount++;
     return (-1) + calculator::divide((x + y), y);
-  }
+  } //case 2
   else if(x < 0 && y > 0){ //case 3: (-10) / 2
     divCount++;
     return (-1) + calculator::divide((x + y), y);
-  }
+  } //case 3
   else if(x < 0 && y < 0){ //case 4: (-10) / (-2)
     divCount++;
     return 1 + calculator::divide((x - y), y);
-  }
+  } //case 4
+
+  //error case (should never happen) ----------
+
+  else{
+    divCount = -1;
+    cout << endl << "Invalid input" << endl;
+    return 0;
+  } //else
+
 } //int
 
 int calculator::getAddCount(){
