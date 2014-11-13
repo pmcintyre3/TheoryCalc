@@ -1,5 +1,5 @@
 calculator: calculator.o main.o
-	g++ calculator.o main.o -o calculator
+	g++ calculator.o main.o -o calc
 
 calculator.o: calculator.cpp
 	g++ -g calculator.cpp -c
