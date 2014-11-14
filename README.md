@@ -1,5 +1,5 @@
-TheoryCalc
-==========
+TheoryCalc v1.0
+===============
 
 Author: Phillip A McIntyre Jr.
 
@@ -39,3 +39,12 @@ To run the program, you must compile first. After compiling, type the
 following into the commandline:
  
     $ ./calc
+
+
+Version
+-------
+
+> v1.0
+Working calculator that returns number of recursions as well as the
+answer. The recursion counts will be used in future calculations and
+proofs on Computational Theory concepts. 
