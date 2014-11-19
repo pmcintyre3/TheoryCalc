@@ -2,6 +2,7 @@
 #define _PDA_H_
 
 #include <cstdlib>
+#include <utility>
 #include <vector>
 
 #include "Node.h"
@@ -11,39 +12,41 @@
 
 class pda{
  private:
-  int numStates;
+  int numStates; //------------------------------------------ total number of states
 
-  std::vector <Node*> states;
-  char sigma [2];
-  char gamma [10];
+  std::vector <Node*> states; //----------------------------- vector (set) of states
+  char sigma [2]; //----------------------------------------- array of PDA alphabet
+  char gamma [10]; //---------------------------------------- array of stack alphabet
   
-  std::pair delta [1000];
+  std::vector<std::pair<Node *, Node *> > delta; //------------------------------- vector of transitions
 
-  Node* qStart;
-  Node* qAccept;
+  Node* qStart; //------------------------------------------- PDA start state
+  Node* qAccept; //------------------------------------------ PDA accept state
   
  public:
-  pda();
-  pda(std::vector<Node*>, char*, char*, std::pair*, Node*, Node*);
-  ~pda();
+  pda(); //-------------------------------------------------- Create PDA
+  pda(std::vector<Node*>, char*, char*, std::vector< std::pair<Node *, Node *> >, Node*, Node*); // Create PDA 
+  ~pda(); //------------------------------------------------- Delete PDA
 
 
-  void createNode();
-  void deleteNode();
+  void createNode(); //-------------------------------------- create a node
+  void deleteNode(Node*); //-------------------------------------- delete a node
   
-  void setStates(std::vector<Node*>);
-  void setSigma(char*);
-  void setGamma(char*);
-  void setQStart(Node*);
-  void setQAccept(Node*);
-  void setNumStates(int);
+  void setDelta(std::vector< std:: pair< Node *, Node *> >); // assign transition set
+  void setStates(std::vector<Node*>); //--------------------- assign set of states
+  void setSigma(char*); //----------------------------------- assign PDA alphabet
+  void setGamma(char*); //----------------------------------- assign stack alphabet
+  void setQStart(Node*); //---------------------------------- assign start state
+  void setQAccept(Node*); //--------------------------------- assign accept state
+  void setNumStates(int); //--------------------------------- change state counter
 
-  std::vector<Node*> getStates();
-  char * getSigma();
-  char * getGamma();
-  Node* getQStart();
-  Node* getQAccept();
-  int getNumStates();
+  std::vector< pair:: <Node *, Node *> > getDelta(); //------ return transition set
+  std::vector<Node*> getStates(); //------------------------- return set of states
+  char * getSigma(); //-------------------------------------- return PDA alphabet
+  char * getGamma(); //-------------------------------------- return stack alphabet 
+  Node* getQStart(); //-------------------------------------- return PDA start state
+  Node* getQAccept(); //------------------------------------- return PDA accept state
+  int getNumStates(); //------------------------------------- return number of states
 }; //PDA
 
 #endif

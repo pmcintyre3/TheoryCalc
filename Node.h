@@ -8,29 +8,30 @@
 class Node{
   
  private:
-  bool isStart;
-  bool isAccept;
+  bool isStart; //------------------- Determines if it is a start state
+  bool isAccept; //------------------ Determines if it is an accept state
   
-  Node* delta0;
-  Node* delta1;
+  Node* delta0; //------------------- On input "0", will point to another node
+  Node* delta1; //------------------- On input "1", will point to another node
+
+  friend class PDA; //--------------- Allows PDA class to edit these values
 
  public:
-  Node();
-  Node(bool, bool, Node*, Node*);
+  Node(); //------------------------ Constructor
+  Node(bool, bool, Node*, Node*); // Constructor with values
+  ~Node();
 
-  void setIsStart(bool);
-  void setIsAccept(bool);
-  void setDelta0(Node*);
-  void setDelta1(Node*);
 
-  bool getIsStart();
-  bool getIsAccept();
-  Node* getDelta0();
-  Node* getDelta1();
+  void setIsStart(bool); //--------- Change isStart value
+  void setIsAccept(bool); //-------- Change isAccept value
+  void setDelta0(Node*); //--------- Change delta0 value
+  void setDelta1(Node*); //--------- Change delta1 value
 
-  void createNode();
-  void deleteNode();
-  
+  bool getIsStart(); //------------- Retrieve isStart value
+  bool getIsAccept(); //------------ Retrieve isAccept value
+  Node* getDelta0(); //------------- Retrieve delta0 value
+  Node* getDelta1(); //------------- Retrieve delta1 value
+
 };
 
 #endif
