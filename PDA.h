@@ -12,41 +12,41 @@
 
 class pda{
  private:
-  int numStates; //------------------------------------------ total number of states
+  int numStates; //-------------------------------------------------------------------------------- total number of states
 
-  std::vector <Node*> states; //----------------------------- vector (set) of states
-  char sigma [2]; //----------------------------------------- array of PDA alphabet
-  char gamma [10]; //---------------------------------------- array of stack alphabet
+  std::vector <Node*> states; //------------------------------------------------------------------- vector (set) of states
+  std::vector<char> sigma; //---------------------------------------------------------------------- array of PDA alphabet
+  std::vector<char> gamma; //---------------------------------------------------------------------- array of stack alphabet
   
-  std::vector<std::pair<Node *, Node *> > delta; //------------------------------- vector of transitions
+  std::vector<std::vector<Node *> > delta; //------------------------------------------------------ vector of transitions
 
-  Node* qStart; //------------------------------------------- PDA start state
-  Node* qAccept; //------------------------------------------ PDA accept state
+  std::vector<Node> qStart; //--------------------------------------------------------------------- PDA start state
+  std::vector<Node> qAccept; //-------------------------------------------------------------------- PDA accept state
   
  public:
-  pda(); //-------------------------------------------------- Create PDA
-  pda(std::vector<Node*>, char*, char*, std::vector< std::pair<Node *, Node *> >, Node*, Node*); // Create PDA 
-  ~pda(); //------------------------------------------------- Delete PDA
+  pda(); //---------------------------------------------------------------------------------------- Create PDA
+  pda(std::vector<Node*>, std::vector<char>, std::vector<char>, std::vector< std::vector<Node *> >, std::vector<Node>, std::vector<Node>); //----- Create PDA 
+  ~pda(); //--------------------------------------------------------------------------------------- Delete PDA
 
 
-  void createNode(); //-------------------------------------- create a node
-  void deleteNode(Node*); //-------------------------------------- delete a node
+  void createNode(); //---------------------------------------------------------------------------- create a node
+  void deleteNode(Node*); //----------------------------------------------------------------------- delete a node
   
-  void setDelta(std::vector< std:: pair< Node *, Node *> >); // assign transition set
-  void setStates(std::vector<Node*>); //--------------------- assign set of states
-  void setSigma(char*); //----------------------------------- assign PDA alphabet
-  void setGamma(char*); //----------------------------------- assign stack alphabet
-  void setQStart(Node*); //---------------------------------- assign start state
-  void setQAccept(Node*); //--------------------------------- assign accept state
-  void setNumStates(int); //--------------------------------- change state counter
+  void setDelta(std::vector< std::vector<Node *> >); //-------------------------------------------- assign transition set
+  void setStates(std::vector<Node*>); //----------------------------------------------------------- assign set of states
+  void setSigma(std::vector<char>); //------------------------------------------------------------- assign PDA alphabet
+  void setGamma(std::vector<char>); //------------------------------------------------------------- assign stack alphabet
+  void setQStart(std::vector<Node>); //------------------------------------------------------------ assign start state
+  void setQAccept(std::vector<Node>); //----------------------------------------------------------- assign accept state
+  void setNumStates(int); //----------------------------------------------------------------------- change state counter
 
-  std::vector< pair:: <Node *, Node *> > getDelta(); //------ return transition set
-  std::vector<Node*> getStates(); //------------------------- return set of states
-  char * getSigma(); //-------------------------------------- return PDA alphabet
-  char * getGamma(); //-------------------------------------- return stack alphabet 
-  Node* getQStart(); //-------------------------------------- return PDA start state
-  Node* getQAccept(); //------------------------------------- return PDA accept state
-  int getNumStates(); //------------------------------------- return number of states
+  std::vector< std::vector<Node *> > getDelta(); //------------------------------------------------ return transition set
+  std::vector<Node*> getStates(); //--------------------------------------------------------------- return set of states
+  std::vector<char> getSigma(); //----------------------------------------------------------------- return PDA alphabet
+  std::vector<char> getGamma(); //----------------------------------------------------------------- return stack alphabet 
+  std::vector<Node> getQStart(); //---------------------------------------------------------------- return PDA start state
+  std::vector<Node> getQAccept(); //--------------------------------------------------------------- return PDA accept state
+  int getNumStates(); //--------------------------------------------------------------------------- return number of states
 }; //PDA
 
 #endif
