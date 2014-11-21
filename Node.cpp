@@ -12,9 +12,9 @@ Node::Node(bool s, bool a, bool r) : isStart(s), isAccept(a), isReject(r), delta
 Node::Node(bool s, bool a, bool r, Node* d0, Node* d1, Node* dE) : isStart(s), isAccept(a), isReject(r), delta0(d0), delta1(d1), deltaE(dE) {};
 
 Node::~Node(){
-  delta0 = (Node *) NULL;
-  delta1 = (Node *) NULL;
-  deltaE = (Node *) NULL;
+  delete delta0;
+  delete delta1;
+  delete deltaE;
 }
 
 void Node::setIsStart(bool s){

@@ -27,7 +27,7 @@ class pda{
   
  public:
   pda(); //---------------------------------------------------------------------------------------- Create PDA
-  pda(std::vector<Node*>, std::vector<char>, std::vector<char>, std::vector< std::vector<Node *> >, std::vector<Node>, std::vector<Node>); //----- Create PDA 
+  pda(std::vector<Node*>, std::vector<char>, std::vector<char>, std::vector< std::vector<Node *> >, std::vector<Node*>, std::vector<Node*>); //----- Create PDA 
   ~pda(); //--------------------------------------------------------------------------------------- Delete PDA
 
 

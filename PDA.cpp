@@ -7,7 +7,7 @@
 
 using namespace std;
 
-pda::pda() : states(NULL), sigma({ 0 }), gamma({ 0 }), delta(NULL), qStart(NULL), qAccept(NULL), stack({0}){
+pda::pda(){
 
   Node* n = new Node();
 
