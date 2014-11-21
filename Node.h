@@ -10,7 +10,7 @@ class Node{
  private:
   bool isStart; //------------------- Determines if it is a start state
   bool isAccept; //------------------ Determines if it is an accept state
-  bool isReject;
+  bool isReject; //------------------ Determines if it is a reject state
 
   Node* delta0; //------------------- On input "0", will point to another node
   Node* delta1; //------------------- On input "1", will point to another node
@@ -20,9 +20,9 @@ class Node{
 
  public:
   Node(); //------------------------ Constructor
-  Node(bool, bool, Node*, Node*); // Constructor with values
+  Node(bool, bool, bool); //constructor w/o transition values
+  Node(bool, bool, bool, Node*, Node*, Node*); // Constructor with values
   ~Node();
-
 
   void setIsStart(bool); //--------- Change isStart value
   void setIsAccept(bool); //-------- Change isAccept value
@@ -33,6 +33,7 @@ class Node{
 
   bool getIsStart(); //------------- Retrieve isStart value
   bool getIsAccept(); //------------ Retrieve isAccept value
+  bool getIsReject(); //------------ Retrieve isReject value
   Node* getDelta0(); //------------- Retrieve delta0 value
   Node* getDelta1(); //------------- Retrieve delta1 value
   Node* getDeltaE(); //------------- Retrieve deltaE value

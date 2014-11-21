@@ -22,6 +22,8 @@ class pda{
 
   std::vector<Node> qStart; //--------------------------------------------------------------------- PDA start state
   std::vector<Node> qAccept; //-------------------------------------------------------------------- PDA accept state
+
+  std::vector<char> stack;
   
  public:
   pda(); //---------------------------------------------------------------------------------------- Create PDA
@@ -31,7 +33,8 @@ class pda{
 
   void createNode(); //---------------------------------------------------------------------------- create a node
   void deleteNode(Node*); //----------------------------------------------------------------------- delete a node
-  
+
+  void setStack(std::vector<char>);
   void setDelta(std::vector< std::vector<Node *> >); //-------------------------------------------- assign transition set
   void setStates(std::vector<Node*>); //----------------------------------------------------------- assign set of states
   void setSigma(std::vector<char>); //------------------------------------------------------------- assign PDA alphabet
@@ -40,6 +43,7 @@ class pda{
   void setQAccept(std::vector<Node>); //----------------------------------------------------------- assign accept state
   void setNumStates(int); //----------------------------------------------------------------------- change state counter
 
+  std::vector<char> getStack();
   std::vector< std::vector<Node *> > getDelta(); //------------------------------------------------ return transition set
   std::vector<Node*> getStates(); //--------------------------------------------------------------- return set of states
   std::vector<char> getSigma(); //----------------------------------------------------------------- return PDA alphabet
