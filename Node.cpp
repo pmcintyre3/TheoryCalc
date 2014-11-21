@@ -1,3 +1,6 @@
+#include <cstdlib>
+#include <unistd.h>
+
 #include "Node.h"
 
 using namespace std;
@@ -7,6 +10,12 @@ Node::Node() : isStart(false), isAccept(false), isReject(false), delta0(NULL), d
 Node::Node(bool s, bool a, bool r) : isStart(s), isAccept(a), isReject(r), delta0(NULL), delta1(NULL), deltaE(NULL){};
 
 Node::Node(bool s, bool a, bool r, Node* d0, Node* d1, Node* dE) : isStart(s), isAccept(a), isReject(r), delta0(d0), delta1(d1), deltaE(dE) {};
+
+Node::~Node(){
+  delta0 = (Node *) NULL;
+  delta1 = (Node *) NULL;
+  deltaE = (Node *) NULL;
+}
 
 void Node::setIsStart(bool s){
   isStart = s;
@@ -20,15 +29,15 @@ void Node::setIsAccept(bool a){
   isAccept = a;
 }
 
-Node* Node::setDelta0(Node* n){
+void Node::setDelta0(Node* n){
   delta0 = n;
 }
 
-Node* Node::setDelta1(Node* n){
+void Node::setDelta1(Node* n){
   delta1 = n;
 }
 
-Node* Node::setDeltaE(Node* n){
+void Node::setDeltaE(Node* n){
   deltaE = n;
 }
 

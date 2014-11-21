@@ -9,9 +9,28 @@ using namespace std;
 
 pda::pda() : states(NULL), sigma({ 0 }), gamma({ 0 }), delta(NULL), qStart(NULL), qAccept(NULL), stack({0}){
 
-} //blank pda constructor
+  Node* n = new Node();
 
-pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<Node*> > d, vector<Node> qS, vector<Node> qA) : states(q), sigma(s), gamma(g), delta(d), qStart(qS), qAccept(qA), stack({0}){
+  n->setIsStart(true);
+  n->setIsAccept(true);
+
+  states.push_back(n);
+
+  qStart.push_back(n);
+
+  qAccept.push_back(n);
+
+  sigma.push_back('0');
+  sigma.push_back('1');
+
+  gamma.push_back('0');
+  gamma.push_back('1');
+  gamma.push_back('#');
+  gamma.push_back('X');
+
+  } //blank pda constructor
+
+pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<Node*> > d, vector<Node*> qS, vector<Node*> qA) : states(q), sigma(s), gamma(g), delta(d), qStart(qS), qAccept(qA), stack({0}){
 
   numStates = states.size();
 
@@ -34,48 +53,64 @@ pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<No
   auto it = states.begin();
 
   for (it; it != states.end(); ++it){
-    if (it == states.begin()) //if iterator is at the beginning, the node it points to will be the start state
-      pda::setQStart(*it);
-
-    if ((*it)->getIsAccept == true){
-      
+    if (it == states.begin()){ //if iterator is at the beginning, the node it points to will be the start state
+      (*it)->setIsStart(true);
+      qStart.push_back(*it);
+    }
+    else{
+      (*it)->setIsStart(false);
     }
     //connect the Nodes
     for (auto row = delta.begin(); row != delta.end(); ++row){
-      if(row-length() != sigma_size){
+      if(row->size() != sigma_size){
 	perror("Delta not formatted correctly.");
       }
+
       alphaOption = 0;
 		  
       for (auto col = row->begin(); col != row->end(); ++col){
-	if (alphaOption == 0){
-	  (*it)->setDelta0(*col);
-	  alphaOption++;
-	} //else if
-	else if (alphaOption == 1){
-	  (*it)->setDelta1(*col);
-	  alphaOption++;
-	} //else if
-	else if (alphaOption == 2){
-	  (*it)->setDeltaE(*col);
-	  alphaOption++;
-	} //else if
+	if(*col != NULL){
+	  if (alphaOption == 0){
+	    (*it)->setDelta0(*col);
+	    alphaOption++;
+	  } //else if
+	  else if (alphaOption == 1){
+	    (*it)->setDelta1(*col);
+	    alphaOption++;
+	  } //else if
+	  else if (alphaOption == 2){
+	    (*it)->setDeltaE(*col);
+	    alphaOption++;
+	  } //else if
+	  else{
+	    perror("Incorrect format on transition function");
+	    exit(0);
+	  }
+	} // *col == NULL
 	else{
 	  perror("Incorrect format on transition function");
 	  exit(0);
 	}
-		    
-	if ((*it)->getDelta0() == NULL && (*it)->getDelta1() == NULL && (*it)->getDeltaE == NULL){
-	  (*it)->setIsAccept(false);
-	  (*it)->setIsReject(true);
-	} //if
-	else{
-	  perror("Delta not formatted correctly. Missing transition values");
-	  exit(0);
-	} //else
-      }
-    }		
-  }	
+      }	//for col	    
+
+    } //for row
+
+    if ((*it)->getDelta0() == NULL && (*it)->getDelta1() == NULL && (*it)->getDeltaE() == NULL){
+      (*it)->setDelta0(*it);
+      (*it)->setDelta1(*it);
+      (*it)->setDeltaE(*it);
+      
+    } //else
+
+    if((*it)->getIsAccept() == true){
+      qAccept.push_back((*it));
+    }
+    if((*it)->getIsStart() == true){
+      qStart.push_back((*it));
+    }
+
+  } //for it
+  
 } //pda constructor
 
 pda::~pda(){
@@ -86,6 +121,17 @@ pda::~pda(){
 
 void pda::createNode(){
   Node * n = new Node();
+  Node * next = new Node();
+
+  auto it = states.end();
+  
+  n = *it;
+
+  states.push_back(next);
+
+  delete[] n;
+  delete[] next;
+
 }
 
 void pda::setStack(vector<char> s){
@@ -93,7 +139,7 @@ void pda::setStack(vector<char> s){
 }
 
 void pda::deleteNode(Node * n){
-  delete n;
+  delete[] n;
 }
 
 void pda::setDelta(vector< std::vector<Node *> > v){
@@ -112,11 +158,11 @@ void pda::setGamma(vector<char> g){
   gamma = g;
 }
 
-void pda::setQStart(Node* n){
-	qStart = n;
+void pda::setQStart(vector<Node*> n){
+  qStart = n;
 }
 
-void pda::setQAccept(Node* n){
+void pda::setQAccept(vector<Node*> n){
   qAccept = n;
 }
 
@@ -144,11 +190,11 @@ vector<char> pda::getGamma(){
   return gamma;
 }
 
-struct Node* pda::getQStart(){
+vector<Node*> pda::getQStart(){
   return qStart;
 }
 
-struct Node* pda::getQAccept(){
+vector<Node*> pda::getQAccept(){
   return qAccept;
 }
 

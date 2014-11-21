@@ -20,8 +20,8 @@ class pda{
   
   std::vector<std::vector<Node *> > delta; //------------------------------------------------------ vector of transitions
 
-  std::vector<Node> qStart; //--------------------------------------------------------------------- PDA start state
-  std::vector<Node> qAccept; //-------------------------------------------------------------------- PDA accept state
+  std::vector<Node*> qStart; //--------------------------------------------------------------------- PDA start state
+  std::vector<Node*> qAccept; //-------------------------------------------------------------------- PDA accept state
 
   std::vector<char> stack;
   
@@ -39,8 +39,8 @@ class pda{
   void setStates(std::vector<Node*>); //----------------------------------------------------------- assign set of states
   void setSigma(std::vector<char>); //------------------------------------------------------------- assign PDA alphabet
   void setGamma(std::vector<char>); //------------------------------------------------------------- assign stack alphabet
-  void setQStart(std::vector<Node>); //------------------------------------------------------------ assign start state
-  void setQAccept(std::vector<Node>); //----------------------------------------------------------- assign accept state
+  void setQStart(std::vector<Node*>); //------------------------------------------------------------ assign start state
+  void setQAccept(std::vector<Node*>); //----------------------------------------------------------- assign accept state
   void setNumStates(int); //----------------------------------------------------------------------- change state counter
 
   std::vector<char> getStack();
@@ -48,8 +48,8 @@ class pda{
   std::vector<Node*> getStates(); //--------------------------------------------------------------- return set of states
   std::vector<char> getSigma(); //----------------------------------------------------------------- return PDA alphabet
   std::vector<char> getGamma(); //----------------------------------------------------------------- return stack alphabet 
-  std::vector<Node> getQStart(); //---------------------------------------------------------------- return PDA start state
-  std::vector<Node> getQAccept(); //--------------------------------------------------------------- return PDA accept state
+  std::vector<Node*> getQStart(); //---------------------------------------------------------------- return PDA start state
+  std::vector<Node*> getQAccept(); //--------------------------------------------------------------- return PDA accept state
   int getNumStates(); //--------------------------------------------------------------------------- return number of states
 }; //PDA
 
