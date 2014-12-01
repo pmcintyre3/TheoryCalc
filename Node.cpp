@@ -29,6 +29,10 @@ void Node::setIsAccept(bool a){
   isAccept = a;
 }
 
+void Node::setOnStack(char c){
+  onStack = c;
+}
+
 void Node::setDelta0(Node* n){
   delta0 = n;
 }
@@ -51,6 +55,10 @@ bool Node::getIsReject(){
 
 bool Node::getIsAccept(){
   return isAccept;
+}
+
+char Node::getOnStack(){
+  return onStack;
 }
 
 Node* Node::getDelta0(){

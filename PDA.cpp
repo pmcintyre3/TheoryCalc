@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <string>
 #include <iterator>
 #include <iostream>
 
@@ -140,6 +141,67 @@ void pda::populate(){
 
 }
 
+string pda::run(string s){
+
+  Node * n = states[0];
+  char c = '';
+  //check if input string is part of the alphabet (sigma)
+  for(auto it = sigma.begin(); it != sigma.end(); ++it){
+
+    auto found = s.find((*it));
+    if(found == npos){
+      cout << "Incorrectly formatted input string" << endl;
+      return "-1"
+    }
+    else
+      continue;
+  }
+
+  stack.push_back('$');
+
+  for(int i = 0; i < s.length(); i++){
+
+    if(s[i] == "0"){
+      c = n->getOnStack();
+      if(c != ''){	
+	stack.pop_back();
+      }
+      else{
+	stack.push_back(s[i]);
+      }
+
+      n = n->getDelta0();
+    }
+    else if(s[i] == "1"){
+      c = n->getOnStack();
+      if(c != '')
+	stack.pop_back();
+      else
+	stack.push_back(s[i]);
+
+      n = n->getDelta1();
+    }
+    else{
+      if(n->getIsReject == true)
+	return "-1";
+
+      else if(n->getDeltaE != NULL){
+	if(c != '')
+	  stack.pop_back();
+	else
+	  stack.push_back(s[i]);
+
+	n = n->getDeltaE();
+      }
+
+      else{
+	cout << "PDA not formatted correctly" << endl;
+	return "Incorrect PDA Format";
+      }
+    }
+
+  }
+}
 
 void pda::setStack(vector<char> s){
   stack = s;

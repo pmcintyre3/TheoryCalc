@@ -12,6 +12,8 @@ class Node{
   bool isAccept; //------------------ Determines if it is an accept state
   bool isReject; //------------------ Determines if it is a reject state
 
+  char onStack; //------------------- Character requirement on stack
+
   Node* delta0; //------------------- On input "0", will point to another node
   Node* delta1; //------------------- On input "1", will point to another node
   Node* deltaE; //------------------- On input "epsilon" (empty string), will point to another node
@@ -27,6 +29,7 @@ class Node{
   void setIsStart(bool); //--------- Change isStart value
   void setIsAccept(bool); //-------- Change isAccept value
   void setIsReject(bool); //-------- Change isReject value
+  void setOnStack(char); //--------- Change onStack value
   void setDelta0(Node*); //--------- Change delta0 value
   void setDelta1(Node*); //--------- Change delta1 value
   void setDeltaE(Node*); //--------- Change deltaE value
@@ -34,6 +37,7 @@ class Node{
   bool getIsStart(); //------------- Retrieve isStart value
   bool getIsAccept(); //------------ Retrieve isAccept value
   bool getIsReject(); //------------ Retrieve isReject value
+  char getOnStack(); //------------- Retrieve onStack value
   Node* getDelta0(); //------------- Retrieve delta0 value
   Node* getDelta1(); //------------- Retrieve delta1 value
   Node* getDeltaE(); //------------- Retrieve deltaE value
