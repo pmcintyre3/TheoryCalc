@@ -28,9 +28,35 @@ pda::pda(){
   gamma.push_back('#');
   gamma.push_back('X');
 
+  n->setDelta0(NULL);
+  n->setDelta1(NULL);
+  n->setDeltaE(NULL);
+
   } //blank pda constructor
 
 pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<Node*> > d, vector<Node*> qS, vector<Node*> qA) : states(q), sigma(s), gamma(g), delta(d), qStart(qS), qAccept(qA), stack({0}){
+
+  
+} //pda constructor
+
+pda::~pda(){
+  for(int i = 0; i < 1000; i++){
+    delete(states[i]);
+  }
+} 
+
+void pda::createNode(){
+
+  Node * n = new Node();
+  states.push_back(n);
+
+}
+
+void pda::deleteNode(Node * n){
+  delete[] n;
+}
+
+void pda::populate(){
 
   numStates = states.size();
 
@@ -53,13 +79,25 @@ pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<No
   auto it = states.begin();
 
   for (it; it != states.end(); ++it){
-    if (it == states.begin()){ //if iterator is at the beginning, the node it points to will be the start state
-      (*it)->setIsStart(true);
-      qStart.push_back(*it);
+    for(auto s = qStart.begin(); s != qStart.end(); ++s){
+      if (it == s){ //if iterator points to a member of qStart, then iterator points to a start state
+	(*it)->setIsStart(true);
+	(*it)->setIsReject(false);
+      }
+      else{
+	(*it)->setIsStart(false);
+      }
+    } //s = qStart.begin()
+    for(auto a = qAccept.begin(); a != qStart.end(); ++a){
+      if(it == a){ //if it points to a member of qAccept, then it points to an accept state
+	(*it)->setIsAccept(true);
+	(*it)->setIsReject(false);
+      }
+      else{
+	(*it)->setIsAccept(false);
+      }
     }
-    else{
-      (*it)->setIsStart(false);
-    }
+
     //connect the Nodes
     for (auto row = delta.begin(); row != delta.end(); ++row){
       if(row->size() != sigma_size){
@@ -69,7 +107,7 @@ pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<No
       alphaOption = 0;
 		  
       for (auto col = row->begin(); col != row->end(); ++col){
-	if(*col != NULL){
+
 	  if (alphaOption == 0){
 	    (*it)->setDelta0(*col);
 	    alphaOption++;
@@ -86,11 +124,6 @@ pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<No
 	    perror("Incorrect format on transition function");
 	    exit(0);
 	  }
-	} // *col == NULL
-	else{
-	  perror("Incorrect format on transition function");
-	  exit(0);
-	}
       }	//for col	    
 
     } //for row
@@ -100,46 +133,16 @@ pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<No
       (*it)->setDelta1(*it);
       (*it)->setDeltaE(*it);
       
+      (*it)->setIsReject(true);
     } //else
 
-    if((*it)->getIsAccept() == true){
-      qAccept.push_back((*it));
-    }
-    if((*it)->getIsStart() == true){
-      qStart.push_back((*it));
-    }
-
   } //for it
-  
-} //pda constructor
-
-pda::~pda(){
-  for(int i = 0; i < 1000; i++){
-    delete(states[i]);
-  }
-} 
-
-void pda::createNode(){
-  Node * n = new Node();
-  Node * next = new Node();
-
-  auto it = states.end();
-  
-  n = *it;
-
-  states.push_back(next);
-
-  delete[] n;
-  delete[] next;
 
 }
+
 
 void pda::setStack(vector<char> s){
   stack = s;
-}
-
-void pda::deleteNode(Node * n){
-  delete[] n;
 }
 
 void pda::setDelta(vector< std::vector<Node *> > v){

@@ -33,6 +33,7 @@ class pda{
 
   void createNode(); //---------------------------------------------------------------------------- create a node
   void deleteNode(Node*); //----------------------------------------------------------------------- delete a node
+  void populate();
 
   void setStack(std::vector<char>);
   void setDelta(std::vector< std::vector<Node *> >); //-------------------------------------------- assign transition set

@@ -11,5 +11,4 @@ clean:
 	rm -f calculator
 	rm -f calc
 	rm -f *~
-	rm -f main.o
-	rm -f calculator.o
+	rm -f *.o
