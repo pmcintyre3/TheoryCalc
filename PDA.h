@@ -18,7 +18,7 @@ class pda{
   std::vector<char> sigma; //---------------------------------------------------------------------- array of PDA alphabet
   std::vector<char> gamma; //---------------------------------------------------------------------- array of stack alphabet
   
-  std::vector<std::vector<Node *> > delta; //------------------------------------------------------ vector of transitions
+  std::vector<std::vector<std::pair<Node *, char > > delta; //------------------------------------------------------ vector of transitions
 
   std::vector<Node*> qStart; //--------------------------------------------------------------------- PDA start state
   std::vector<Node*> qAccept; //-------------------------------------------------------------------- PDA accept state
@@ -38,7 +38,7 @@ class pda{
   std::string run(std::string);
 
   void setStack(std::vector<char>);
-  void setDelta(std::vector< std::vector<Node *> >); //-------------------------------------------- assign transition set
+  void setDelta(std::vector<std::vector<std::pair<Node *, char > >); //-------------------------------------------- assign transition set
   void setStates(std::vector<Node*>); //----------------------------------------------------------- assign set of states
   void setSigma(std::vector<char>); //------------------------------------------------------------- assign PDA alphabet
   void setGamma(std::vector<char>); //------------------------------------------------------------- assign stack alphabet
@@ -47,7 +47,7 @@ class pda{
   void setNumStates(int); //----------------------------------------------------------------------- change state counter
 
   std::vector<char> getStack();
-  std::vector< std::vector<Node *> > getDelta(); //------------------------------------------------ return transition set
+  std::vector<std::vector<std::pair<Node *, char > > getDelta(); //------------------------------------------------ return transition set
   std::vector<Node*> getStates(); //--------------------------------------------------------------- return set of states
   std::vector<char> getSigma(); //----------------------------------------------------------------- return PDA alphabet
   std::vector<char> getGamma(); //----------------------------------------------------------------- return stack alphabet 

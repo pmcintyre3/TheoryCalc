@@ -14,9 +14,9 @@ class Node{
 
   char onStack; //------------------- Character requirement on stack
 
-  Node* delta0; //------------------- On input "0", will point to another node
-  Node* delta1; //------------------- On input "1", will point to another node
-  Node* deltaE; //------------------- On input "epsilon" (empty string), will point to another node
+  std::pair<Node*, char> delta0; //------------------- On input "0", will point to another node
+  std::pair<Node*, char> delta1; //------------------- On input "1", will point to another node
+  std::pair<Node*, char> deltaE; //------------------- On input "epsilon" (empty string), will point to another node
 
   friend class PDA; //--------------- Allows PDA class to edit these values
 
@@ -30,17 +30,17 @@ class Node{
   void setIsAccept(bool); //-------- Change isAccept value
   void setIsReject(bool); //-------- Change isReject value
   void setOnStack(char); //--------- Change onStack value
-  void setDelta0(Node*); //--------- Change delta0 value
-  void setDelta1(Node*); //--------- Change delta1 value
-  void setDeltaE(Node*); //--------- Change deltaE value
+  void setDelta0(std::pair<Node*, char>); //--------- Change delta0 value
+  void setDelta1(std::pair<Node*, char>); //--------- Change delta1 value
+  void setDeltaE(std::pair<Node*, char>); //--------- Change deltaE value
 
   bool getIsStart(); //------------- Retrieve isStart value
   bool getIsAccept(); //------------ Retrieve isAccept value
   bool getIsReject(); //------------ Retrieve isReject value
   char getOnStack(); //------------- Retrieve onStack value
-  Node* getDelta0(); //------------- Retrieve delta0 value
-  Node* getDelta1(); //------------- Retrieve delta1 value
-  Node* getDeltaE(); //------------- Retrieve deltaE value
+  std::pair<Node*, char> getDelta0(); //------------- Retrieve delta0 value
+  std::pair<Node*, char> getDelta1(); //------------- Retrieve delta1 value
+  std::pair<Node*, char> getDeltaE(); //------------- Retrieve deltaE value
 
 }; //Node.h
 

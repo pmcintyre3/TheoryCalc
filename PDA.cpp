@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <utility>
 #include <string>
 #include <iterator>
 #include <iostream>
@@ -35,7 +36,7 @@ pda::pda(){
 
   } //blank pda constructor
 
-pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<Node*> > d, vector<Node*> qS, vector<Node*> qA) : states(q), sigma(s), gamma(g), delta(d), qStart(qS), qAccept(qA), stack({0}){
+pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<pair<Node *, char > > d, vector<Node*> qS, vector<Node*> qA) : states(q), sigma(s), gamma(g), delta(d), qStart(qS), qAccept(qA), stack({0}){
 
   
 } //pda constructor
@@ -130,9 +131,9 @@ void pda::populate(){
     } //for row
 
     if ((*it)->getDelta0() == NULL && (*it)->getDelta1() == NULL && (*it)->getDeltaE() == NULL){
-      (*it)->setDelta0(*it);
-      (*it)->setDelta1(*it);
-      (*it)->setDeltaE(*it);
+      (*it)->setDelta0(make_pair(*it, ' '));
+      (*it)->setDelta1(make_pair(*it, ' '));
+      (*it)->setDeltaE(make_pair(*it, ' '));
       
       (*it)->setIsReject(true);
     } //else
@@ -162,7 +163,7 @@ string pda::run(string s){
   for(int i = 0; i < s.length(); i++){
 
     if(s[i] == "0"){
-      c = n->getOnStack();
+      c = n->getDelta0().second;
       if(c != ''){	
 	stack.pop_back();
       }
@@ -170,28 +171,28 @@ string pda::run(string s){
 	stack.push_back(s[i]);
       }
 
-      n = n->getDelta0();
+      n = n->getDelta0().first;
     }
     else if(s[i] == "1"){
-      c = n->getOnStack();
+      c = n->getDelta1().second;
       if(c != '')
 	stack.pop_back();
       else
 	stack.push_back(s[i]);
 
-      n = n->getDelta1();
+      n = n->getDelta1().first;
     }
     else{
       if(n->getIsReject == true)
 	return "-1";
 
-      else if(n->getDeltaE != NULL){
+      else if(n->getDeltaE.first != NULL){
 	if(c != '')
 	  stack.pop_back();
 	else
 	  stack.push_back(s[i]);
 
-	n = n->getDeltaE();
+	n = n->getDeltaE().second;
       }
 
       else{
