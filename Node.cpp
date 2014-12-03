@@ -6,9 +6,9 @@
 
 using namespace std;
 
-Node::Node() : isStart(false), isAccept(false), isReject(false), delta0(NULL), delta1(NULL), deltaE(NULL){};
+Node::Node() : isStart(false), isAccept(false), isReject(false), delta0(make_pair((Node*) NULL, (char) NULL)), delta1(make_pair((Node*) NULL, (char) NULL)), deltaE(make_pair((Node*) NULL, (char) NULL)){};
 
-Node::Node(bool s, bool a, bool r) : isStart(s), isAccept(a), isReject(r), delta0(make_pair(NULL, (char) NULL)), delta1(make_pair(NULL, (char) NULL), deltaE(NULL){};
+Node::Node(bool s, bool a, bool r) : isStart(s), isAccept(a), isReject(r), delta0(make_pair((Node*) NULL, (char) NULL)), delta1(make_pair((Node*) NULL, (char) NULL)), deltaE(make_pair((Node*) NULL, (char) NULL)){};
 
 Node::Node(bool s, bool a, bool r, pair<Node*, char> d0, pair<Node*, char> d1, pair<Node*, char> dE) : isStart(s), isAccept(a), isReject(r), delta0(d0), delta1(d1), deltaE(dE) {};
 

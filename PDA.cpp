@@ -36,7 +36,7 @@ pda::pda(){
 
   } //blank pda constructor
 
-pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<pair<Node *, char > > d, vector<Node*> qS, vector<Node*> qA) : states(q), sigma(s), gamma(g), delta(d), qStart(qS), qAccept(qA), stack({0}){
+pda::pda(vector<Node*> q, std::vector<char> s, vector<char> g, vector< vector<pair<Node *, char > >> d, vector<Node*> qS, vector<Node*> qA) : states(q), sigma(s), gamma(g), delta(d), qStart(qS), qAccept(qA), stack({0}){
 
   
 } //pda constructor
@@ -164,7 +164,7 @@ string pda::run(string s){
 
     if(s[i] == "0"){
       c = n->getDelta0().second;
-      if(c != ''){	
+      if(c != (char) NULL){	
 	stack.pop_back();
       }
       else{
@@ -175,7 +175,7 @@ string pda::run(string s){
     }
     else if(s[i] == "1"){
       c = n->getDelta1().second;
-      if(c != '')
+      if(c != (char) NULL)
 	stack.pop_back();
       else
 	stack.push_back(s[i]);
@@ -187,7 +187,7 @@ string pda::run(string s){
 	return "-1";
 
       else if(n->getDeltaE.first != NULL){
-	if(c != '')
+	if(c !=(char) NULL)
 	  stack.pop_back();
 	else
 	  stack.push_back(s[i]);
@@ -208,7 +208,7 @@ void pda::setStack(vector<char> s){
   stack = s;
 }
 
-void pda::setDelta(vector< std::vector<Node *> > v){
+void pda::setDelta(vector< vector< pair<Node *, char> > > v){
   delta = v;
 }
 
@@ -240,7 +240,7 @@ vector<char> pda::getStack(){
   return stack;
 }
 
-vector<vector<Node *> > pda::getDelta(){
+vector<vector<pair<Node *, char> > > pda::getDelta(){
   return delta;
 }
 

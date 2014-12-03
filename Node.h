@@ -23,7 +23,7 @@ class Node{
  public:
   Node(); //------------------------ Constructor
   Node(bool, bool, bool); //constructor w/o transition values
-  Node(bool, bool, bool, Node*, Node*, Node*); // Constructor with values
+  Node(bool, bool, bool, std::pair<Node*, char>, std::pair<Node*, char>, std::pair<Node*, char>); // Constructor with values
   ~Node();
 
   void setIsStart(bool); //--------- Change isStart value
