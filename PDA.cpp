@@ -30,9 +30,9 @@ pda::pda(){
   gamma.push_back('#');
   gamma.push_back('X');
 
-  n->setDelta0(NULL);
-  n->setDelta1(NULL);
-  n->setDeltaE(NULL);
+  n->setDelta0(make_pair((Node*) NULL, (char) NULL));
+  n->setDelta1(make_pair((Node*) NULL, (char) NULL));
+  n->setDeltaE(make_pair((Node*) NULL, (char) NULL));
 
   } //blank pda constructor
 
@@ -130,7 +130,7 @@ void pda::populate(){
 
     } //for row
 
-    if ((*it)->getDelta0() == NULL && (*it)->getDelta1() == NULL && (*it)->getDeltaE() == NULL){
+    if ((*it)->getDelta0().first == NULL && (*it)->getDelta1().first == NULL && (*it)->getDeltaE().first == NULL){
       (*it)->setDelta0(make_pair(*it, ' '));
       (*it)->setDelta1(make_pair(*it, ' '));
       (*it)->setDeltaE(make_pair(*it, ' '));
@@ -145,14 +145,14 @@ void pda::populate(){
 string pda::run(string s){
 
   Node * n = states[0];
-  char c = '';
+  char c = (char) NULL;
   //check if input string is part of the alphabet (sigma)
   for(auto it = sigma.begin(); it != sigma.end(); ++it){
 
     auto found = s.find((*it));
-    if(found == npos){
+    if(found == string::npos){
       cout << "Incorrectly formatted input string" << endl;
-      return "-1"
+	  return "-1";
     }
     else
       continue;
@@ -162,7 +162,7 @@ string pda::run(string s){
 
   for(int i = 0; i < s.length(); i++){
 
-    if(s[i] == "0"){
+    if(s[i] == '0'){
       c = n->getDelta0().second;
       if(c != (char) NULL){	
 	stack.pop_back();
@@ -173,7 +173,7 @@ string pda::run(string s){
 
       n = n->getDelta0().first;
     }
-    else if(s[i] == "1"){
+    else if(s[i] == '1'){
       c = n->getDelta1().second;
       if(c != (char) NULL)
 	stack.pop_back();
@@ -192,7 +192,7 @@ string pda::run(string s){
 	else
 	  stack.push_back(s[i]);
 
-	n = n->getDeltaE().second;
+	n = n->getDeltaE().first;
       }
 
       else{

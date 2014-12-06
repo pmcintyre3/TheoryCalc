@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cctype>
 #include <limits>
+#include <string>
 
 #include "calculator.h"
 
