@@ -146,6 +146,7 @@ string pda::run(string s){
 
   Node * n = states[0];
   char c = (char) NULL;
+  string answer = "";
   //check if input string is part of the alphabet (sigma)
   for(auto it = sigma.begin(); it != sigma.end(); ++it){
 
@@ -160,47 +161,64 @@ string pda::run(string s){
 
   stack.push_back('$');
 
-  for(int i = 0; i < s.length(); i++){
+  static int i = 0;
 
-    if(s[i] == '0'){
-      c = n->getDelta0().second;
-      if(c != (char) NULL){	
-	stack.pop_back();
-      }
-      else{
-	stack.push_back(s[i]);
-      }
+  for (i = 0; i < s.length(); i++){
 
-      n = n->getDelta0().first;
-    }
-    else if(s[i] == '1'){
-      c = n->getDelta1().second;
-      if(c != (char) NULL)
-	stack.pop_back();
-      else
-	stack.push_back(s[i]);
+	  if (s[i] == '0'){
+		  c = n->getDelta0().second;
+		  if (c == (char) NULL){
+			  stack.pop_back();
+		  }
+		  else{
+			  stack.push_back(s[i]);
+		  }
 
-      n = n->getDelta1().first;
-    }
-    else{
-      if(n->getIsReject == true)
-	return "-1";
+		  n = n->getDelta0().first;
+	  }
+	  else if (s[i] == '1'){
+		  c = n->getDelta1().second;
+		  if (c == (char) NULL)
+			  stack.pop_back();
+		  else
+			  stack.push_back(s[i]);
 
-      else if(n->getDeltaE.first != NULL){
-	if(c !=(char) NULL)
-	  stack.pop_back();
-	else
-	  stack.push_back(s[i]);
+		  n = n->getDelta1().first;
+	  }
+	  else{
+		  if (n->getIsReject == true)
+			  return "-1";
 
-	n = n->getDeltaE().first;
-      }
+		  else if (n->getDeltaE.first != NULL){
+			  if (c != (char) NULL)
+				  stack.pop_back();
+			  else
+				  stack.push_back(s[i]);
 
-      else{
-	cout << "PDA not formatted correctly" << endl;
-	return "Incorrect PDA Format";
-      }
-    }
+			  n = n->getDeltaE().first;
+		  }
 
+		  else{
+			  cout << "PDA not formatted correctly" << endl;
+			  return "Incorrect PDA Format";
+		  }
+	  }
+  }
+
+  if (i == s.length && n->getIsAccept == true){
+
+	  for (int j = 0; j < stack.size; j++){
+
+		  answer += stack[j];
+	  }
+
+	  return answer;
+  }
+
+  else{
+
+	  answer = "Rejected";
+	  return answer;
   }
 }
 
