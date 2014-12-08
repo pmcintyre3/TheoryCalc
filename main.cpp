@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cctype>
 #include <limits>
+#include <string>
 
 #include "calculator.h"
 #include "pushdown.h"
